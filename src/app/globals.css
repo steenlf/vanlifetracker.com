@@ -40,3 +40,12 @@ a {
     color-scheme: dark;
   }
 }
+
+main img {
+  margin: 0 auto;
+}
+
+main h1 {
+  color: gray;
+  font-style: italic ;
+}
