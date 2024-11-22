@@ -1,4 +1,6 @@
 import Image from "next/image";
+import GoogleMaps from '@/app/components/GoogleMaps';
+
 import styles from "./page.module.css";
 
 export default function Home() {
@@ -14,6 +16,7 @@ export default function Home() {
           priority
         />
       <h1>Where Vanlifers Connect</h1>
+        <GoogleMaps />
       </main>
       <footer className={styles.footer}>
       </footer>

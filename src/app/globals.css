@@ -47,5 +47,11 @@ main img {
 
 main h1 {
   color: gray;
-  font-style: italic ;
+  font-style: italic;
+  margin: 0 auto;
+}
+
+.google-map {
+  height: 800px;
+  width: 100vw;
 }
