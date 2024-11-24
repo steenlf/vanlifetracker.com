@@ -16,17 +16,17 @@ export default function GoogleMaps() {
       const { Map } = await loader.importLibrary('maps');
 
       const locationInMap = {
+        // Home sweet home
         lat: 55.66756144874321,
         lng: 12.50824152942455,
       };
 
       // Marker
-      const { Marker } = (await loader.importLibrary('marker'));
+      const { Marker } = await loader.importLibrary('marker');
 
       const options = google.maps.MapOptions = {
         center: locationInMap,
-        zoom: 15,
-        mapId: 'NEXT_MAPS_TUTS',
+        zoom: 11,
       };
 
       const map = new Map(mapRef.current, options);
