@@ -1,25 +1,25 @@
-import Image from "next/image";
+import Image from 'next/image';
 import GoogleMaps from '@/app/components/GoogleMaps';
 
-import styles from "./page.module.css";
+import styles from './page.module.css';
 
-export default function Home() {
+const Home = () => {
   return (
     <div className={styles.page}>
+      <header className={styles.header}></header>
       <main className={styles.main}>
         <Image
           className={styles.logo}
           src="/Vanlife Tracker Logo.svg"
-          alt="Van"
+          alt="Vanlife Tracker Logo"
           width={300}
           height={300}
           priority
         />
-      <h1>Where Vanlifers Connect</h1>
-        <GoogleMaps />
+        <GoogleMaps className={styles.googlemap} />
       </main>
-      <footer className={styles.footer}>
-      </footer>
     </div>
   );
 }
+
+export default Home;

@@ -45,13 +45,3 @@ main img {
   margin: 0 auto;
 }
 
-main h1 {
-  color: gray;
-  font-style: italic;
-  margin: 0 auto;
-}
-
-.google-map {
-  height: 800px;
-  width: 100vw;
-}

@@ -56,6 +56,20 @@
   font-weight: 600;
 }
 
+.header {
+}
+
+.slogan {
+  color: gray;
+  font-style: italic;
+  margin: 0 auto;
+}
+
+.googlemap {
+  height: 800px;
+  width: 100vw;
+}
+
 .ctas {
   display: flex;
   gap: 16px;
@@ -127,11 +141,6 @@ a.secondary {
 }
 
 @media (max-width: 600px) {
-  .page {
-    padding: 32px;
-    padding-bottom: 80px;
-  }
-
   .main {
     align-items: center;
   }

@@ -1,44 +1,54 @@
 'use client';
 
 import React, {useEffect} from 'react';
+import PropTypes from 'prop-types';
 import {Loader} from '@googlemaps/js-api-loader';
 
-export default function GoogleMaps() {
+const GoogleMaps = ({className}) => {
+  console.log('===> ', {NEXT_PUBLIC_MAPS_API_KEY: process.env.NEXT_PUBLIC_MAPS_API_KEY});
   const mapRef = React.useRef(null);
 
   useEffect(() => {
     const initializeMap = async () => {
-      const loader = new Loader({
-        apiKey: process.env.NEXT_PUBLIC_MAPS_API_KEY,
-        version: 'quarterly',
-      });
+      try {
+        const loader = new Loader({
+          apiKey: process.env.NEXT_PUBLIC_MAPS_API_KEY,
+          version: 'quarterly',
+        });
 
-      const { Map } = await loader.importLibrary('maps');
+        const { Map } = await loader.importLibrary('maps');
 
-      const locationInMap = {
-        // Home sweet home
-        lat: 55.66756144874321,
-        lng: 12.50824152942455,
-      };
+        const locationInMap = {
+          // Home sweet home
+          lat: 55.66756144874321,
+          lng: 12.50824152942455,
+        };
 
-      // Marker
-      const { Marker } = await loader.importLibrary('marker');
+        const { Marker } = await loader.importLibrary('marker');
 
-      const options = google.maps.MapOptions = {
-        center: locationInMap,
-        zoom: 11,
-      };
+        const options = {
+          center: locationInMap,
+          zoom: 11,
+        };
 
-      const map = new Map(mapRef.current, options);
+        const map = new Map(mapRef.current, options);
 
-      // Add the marker in the map
-      const marker = new Marker({
-        map: map,
-        position: locationInMap,
-      })
-    }
+        const marker = new Marker({
+          map: map,
+          position: locationInMap,
+        });
+      } catch (error) {
+        console.error("Error initializing map:", error);
+      }
+    };
 
     initializeMap();
-  },[]);
-  return <div className='google-map' ref={mapRef} />
+  }, []);
+  return <div className={className} ref={mapRef} />
+}
+
+export default GoogleMaps;
+
+GoogleMaps.propTypes = {
+  className: PropTypes.string,
 }
