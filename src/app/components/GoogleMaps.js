@@ -5,7 +5,6 @@ import PropTypes from 'prop-types';
 import {Loader} from '@googlemaps/js-api-loader';
 
 const GoogleMaps = ({className}) => {
-  console.log('===> ', {NEXT_PUBLIC_MAPS_API_KEY: process.env.NEXT_PUBLIC_MAPS_API_KEY});
   const mapRef = React.useRef(null);
 
   useEffect(() => {
