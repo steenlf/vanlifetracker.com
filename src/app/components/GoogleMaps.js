@@ -27,7 +27,7 @@ const GoogleMaps = ({className}) => {
 
         const options = {
           center: locationInMap,
-          zoom: 11,
+          zoom: 7,
         };
 
         const map = new Map(mapRef.current, options);
