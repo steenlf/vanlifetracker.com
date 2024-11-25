@@ -16,6 +16,7 @@ const Home = () => {
           height={300}
           priority
         />
+        <h1 className={styles.slogan}>Where Vanlifers meet</h1>
         <GoogleMaps className={styles.googlemap} />
       </main>
     </div>
