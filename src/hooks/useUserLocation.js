@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import {useState, useEffect} from 'react';
 
 const useUserLocation = () => {
   const [location, setLocation] = useState(null);
@@ -6,32 +6,44 @@ const useUserLocation = () => {
 
   useEffect(() => {
     if (!navigator.geolocation) {
-      setError("Geolocation is not supported by your browser.");
+      setError('Geolocation is not supported by your browser.');
       return;
     }
 
-    try {
-      const watchId = navigator.geolocation.watchPosition(
+/*
+    const watchId = navigator.geolocation.watchPosition(
+      (position) => {
+        const {latitude, longitude} = position.coords;
+        console.log('===> useUserLocation - POSITION', {latitude, longitude});
+        setLocation({lat: latitude, lng: longitude});
+      },
+      (err) => {
+        console.log('===> useUserLocation - ERROR', {err});
+        setError(err.message);
+      },
+      {enableHighAccuracy: true, timeout: 3000, maximumAge: 0}
+    );
+*/
+
+    setInterval(() => {
+      navigator.geolocation.getCurrentPosition(
         (position) => {
-          const {latitude, longitude} = position.coords;
-          console.log('===> useUserLocation - POSITION', {latitude, longitude});
-          setLocation({lat: latitude, lng: longitude});
+          console.log("===> Polled position:", position);
         },
-        (err) => {
-          console.log('===> useUserLocation - ERROR', {error});
-          setError(err.message);
+        (error) => {
+          console.error("===> Error in getCurrentPosition:", error);
         },
-        {enableHighAccuracy: true}
+        { enableHighAccuracy: true, timeout: 15000 }
       );
-    } catch (e) {
-      console.log('===> useUserLocation - CATCH ERROR', e);
-    }
+    }, 1000);
+
 
     // Cleanup the watcher on component unmount
     return () => navigator.geolocation.clearWatch(watchId);
   }, []);
 
-  return { location, error };
+  return {location, error};
 };
 
 export default useUserLocation;
+
