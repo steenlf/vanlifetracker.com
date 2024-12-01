@@ -1,53 +1,42 @@
 'use client';
 
-import React, {useEffect} from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
-import {Loader} from '@googlemaps/js-api-loader';
 
-const GoogleMaps = ({className}) => {
-  const mapRef = React.useRef(null);
+import { GoogleMap, Marker, useLoadScript } from "@react-google-maps/api";
+import useUserLocation from '@/hooks/useUserLocation';
 
-  useEffect(() => {
-    const initializeMap = async () => {
-      try {
-        const loader = new Loader({
-          apiKey: process.env.NEXT_PUBLIC_MAPS_API_KEY,
-          version: 'quarterly',
-        });
+const mapContainerStyle = {
+  width: "100%",
+  height: "400px",
+};
 
-        const { Map } = await loader.importLibrary('maps');
+const initialCenter = { lat: 55.68065881192912, lng: 12.585996848117 }; // Default center if location is unavailable - Copenhagen
 
-        const locationInMap = {
-          // Home sweet home
-          lat: 55.66756144874321,
-          lng: 12.50824152942455,
-        };
+function GoogleMaps({className}) {
+  const { isLoaded } = useLoadScript({
+    googleMapsApiKey: process.env.NEXT_PUBLIC_MAPS_API_KEY,
+  });
+  const { location, error } = useUserLocation();
+  console.log('===> User Location', {location, error});
+  if (!isLoaded) return <div>Loading...</div>;
 
-        const { Marker } = await loader.importLibrary('marker');
-
-        const options = {
-          center: locationInMap,
-          zoom: 7,
-        };
-
-        const map = new Map(mapRef.current, options);
-
-        const marker = new Marker({
-          map: map,
-          position: locationInMap,
-        });
-      } catch (error) {
-        console.error("Error initializing map:", error);
-      }
-    };
-
-    initializeMap();
-  }, []);
-  return <div className={className} ref={mapRef} />
+  return (
+    <div className={className}>
+      {error && <p>Error: {error}</p>}
+      <GoogleMap
+        mapContainerStyle={mapContainerStyle}
+        center={location || initialCenter}
+        zoom={location ? 15 : 7} // Adjust zoom dynamically
+      >
+        {location && <Marker position={location} />}
+      </GoogleMap>
+    </div>
+  );
 }
 
 export default GoogleMaps;
 
 GoogleMaps.propTypes = {
   className: PropTypes.string,
-}
+};

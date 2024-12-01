@@ -12,8 +12,8 @@ const Home = () => {
           className={styles.logo}
           src="/Vanlife Tracker Logo.svg"
           alt="Vanlife Tracker Logo"
-          width={300}
-          height={300}
+          width={200}
+          height={200}
           priority
         />
         <h1 className={styles.slogan}>Where Vanlifers meet</h1>
